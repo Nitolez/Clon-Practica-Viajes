@@ -183,6 +183,8 @@ document.addEventListener("click", ({target}) => {
 const dibujarFotoGrande = (id, titulo) => {
     console.log(`Pintando la foto con id: ${id}`)
     console.log(`El titulo es ${titulo}`)
+    // Limpiar el contenido anterior
+    seccionImagenGrande.innerHTML = '';
     const imagenGrande = document.createElement('img');
     const textoImagenGrande = document.createElement("h2")
     imagenGrande.src = id   
