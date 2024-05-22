@@ -98,23 +98,22 @@ const bannerArray = [
         title: 'paisaje genérico banner'
     }
 ];
-//EVENTOS 
-
-document.addEventListener("click", ({target}) => {
-    if(target.matches('div#recomendados button')){
-        let id = target.id
-        let titulo = target.alt
-        dibujarFotoGrande(target.id, titulo)
+// EVENTOS
+document.addEventListener("click", ({ target }) => {
+    const button = target.closest('#recomendados button');
+    if (button) {
+        const id = button.id;
+        dibujarFotoGrande(id);
     }
-})
+});
 
-//FUNCIONES
+// FUNCIONES
 function random(arr) {
     return Math.floor(Math.random() * arr.length);
 }
-//desestructuro cada objeto destino
+
 const pintarOpciones = () => {
-    destinosArray.forEach(({value}) => {
+    destinosArray.forEach(({ value }) => {
         const option = document.createElement('option');
         option.textContent = value;
         option.setAttribute('value', value);
@@ -122,55 +121,66 @@ const pintarOpciones = () => {
     });
     select.append(fragment);
 };
+
 const pintarBanner = () => {
     const banner = document.createElement('img');
-    banner.classList.add('imagen-banner');
     const randomBanner = bannerArray[random(bannerArray)];
+    banner.classList.add('imagen-banner');
     banner.src = randomBanner.src;
     banner.alt = randomBanner.alt;
     banner.title = randomBanner.title;
     fragment.append(banner);
     bienvenidosContainer.append(fragment);
 };
+
 const pintarCards = () => {
-    imgArray.forEach(({alt, src, texto, title, id}, index) => {
+    imgArray.forEach(({ alt, src, texto, title, id }, index) => {
         const contenedorViajes = document.createElement('article');
         const contenedorImagen = document.createElement('div');
-        const boton = document.createElement("button")
+        const boton = document.createElement("button");
         const imagenViajes = document.createElement('img');
-        contenedorImagen.classList.add('contenedorImagen');
         const tituloViajes = document.createElement('h3');
         const textoViajes = document.createElement('p');
+
+        contenedorImagen.classList.add('contenedorImagen');
         imagenViajes.src = src;
         imagenViajes.alt = alt;
         imagenViajes.title = title;
-        contenedorViajes.id = id
+        contenedorViajes.id = id;
         boton.type = "button";
-        boton.textContent = "Click"
-        boton.id = src;
-        boton.alt = alt;
+        boton.textContent = "Click";
+        boton.id = id;  // Asegúrate de asignar el mismo ID al botón
         tituloViajes.textContent = destinosArray[index].value;
         textoViajes.textContent = texto;
+
         contenedorImagen.append(imagenViajes);
         contenedorViajes.append(contenedorImagen, tituloViajes, textoViajes, boton);
         fragment.append(contenedorViajes);
-    })
+    });
     recomendadosContainer.append(fragment);
 };
 
-const dibujarFotoGrande = (id, titulo) => {
-    console.log(`Pintando la foto con id: ${id}`)
-    console.log(`El titulo es ${titulo}`)
-    // Limpiar el contenido anterior
+const dibujarFotoGrande = (id) => {
+    console.log(`Pintando la foto con id: ${id}`);
     seccionImagenGrande.innerHTML = '';
-    const imagenGrande = document.createElement('img');
-    const textoImagenGrande = document.createElement("h2")
-    imagenGrande.src = id   
-    textoImagenGrande.textContent = titulo;
-    seccionImagenGrande.append(textoImagenGrande, imagenGrande)
+
+    const sourceImg = imgArray.find((obj) => obj.id === id);
+    if (sourceImg) {
+        const { src, title, alt } = sourceImg;
+        const imagenGrande = document.createElement('img');
+        const textoImagenGrande = document.createElement("h2");
+
+        imagenGrande.src = src;
+        imagenGrande.alt = alt;
+        textoImagenGrande.textContent = title;
+
+        seccionImagenGrande.append(textoImagenGrande, imagenGrande);
+    } else {
+        console.log("No hay imagen");
+    }
 }
 
-//INVOCACIÓN DE FUNCIONES
+// INVOCACIÓN DE FUNCIONES
 pintarOpciones();
 pintarBanner();
 pintarCards();
