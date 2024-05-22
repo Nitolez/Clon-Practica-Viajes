@@ -105,22 +105,13 @@ function random(arr) {
 //desestructuro cada objeto destino
 const pintarOpciones = () => {
     destinosArray.forEach(({value}) => {
-        const option = document.createElement('option'); //no llamar a la variable con etiqueta
+        const option = document.createElement('option');
         option.textContent = value;
         option.setAttribute('value', value);
         fragment.append(option);
     });
     select.append(fragment);
 };
-// const pintarOpciones = () => {
-//     destinosArray.forEach((destino) => {
-//         const option = document.createElement('option'); //no llamar a la variable con etiqueta
-//         option.textContent = destino.value;
-//         option.setAttribute('value', destino.value);
-//         fragment.append(option);
-//     });
-//     select.append(fragment);
-// };
 const pintarBanner = () => {
     const banner = document.createElement('img');
     banner.classList.add('imagen-banner');
