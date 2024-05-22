@@ -3,6 +3,7 @@ const bienvenidosContainer = document.querySelector('.container-bienvenidos');
 const recomendadosContainer = document.querySelector('#recomendados');
 const select = document.querySelector('select');
 const fragment = document.createDocumentFragment();
+const seccionImagenGrande = document.querySelector("#seccionGrande")
 const destinosArray = [{value: 'Vallecas'}, {value: 'Canarias'}, {value: 'Alcalá de Henares'}, {value: 'Las 100 mil viviendas'}, {value: 'Tu casa'}, {value: 'Mi casa'}, {value: 'Miaumiaumiau'}];
 const imgArray = [
      {
@@ -97,6 +98,15 @@ const bannerArray = [
         title: 'paisaje genérico banner'
     }
 ];
+//EVENTOS 
+
+document.addEventListener("click", ({target}) => {
+    if(target.matches('div#recomendados button')){
+        let id = target.id
+        let titulo = target.alt
+        dibujarFotoGrande(target.id, titulo)
+    }
+})
 
 //FUNCIONES
 function random(arr) {
@@ -148,29 +158,6 @@ const pintarCards = () => {
     recomendadosContainer.append(fragment);
 };
 
-//INVOCACIÓN DE FUNCIONES
-pintarOpciones();
-pintarBanner();
-pintarCards();
-
-
-//EJERCICIO DE CLASE DIA 6
-
-//NUEVAS VARIABLES
-
-const seccionImagenGrande = document.querySelector("#seccionGrande")
-
-//EVENTOS NUEVOS
-document.addEventListener("click", ({target}) => {
-    if(target.matches('div#recomendados button')){
-        let id = target.id
-        let titulo = target.alt
-        dibujarFotoGrande(target.id, titulo)
-    }
-})
-
-//NUEVAS FUNCIONES
-
 const dibujarFotoGrande = (id, titulo) => {
     console.log(`Pintando la foto con id: ${id}`)
     console.log(`El titulo es ${titulo}`)
@@ -182,3 +169,8 @@ const dibujarFotoGrande = (id, titulo) => {
     textoImagenGrande.textContent = titulo;
     seccionImagenGrande.append(textoImagenGrande, imagenGrande)
 }
+
+//INVOCACIÓN DE FUNCIONES
+pintarOpciones();
+pintarBanner();
+pintarCards();
